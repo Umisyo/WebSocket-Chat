@@ -36,15 +36,11 @@ module.exports = {
     // Doc:https://github.com/nuxt-community/modules/tree/master/packages/bulma
     '@nuxtjs/bulma',
     '@nuxtjs/pwa',
-    'nuxt-buefy'
   ],
   /*
   ** Build configuration
   */
   build: {
-    vendor: [
-      'socket.io-client'
-    ],
     postcss: {
       preset: {
         features: {

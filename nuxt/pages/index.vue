@@ -1,68 +1,60 @@
 <template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        websocket-chat
-      </h1>
-      <h2 class="subtitle">
-        My splendid Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >GitHub</a>
-      </div>
+  <div>
+    <!-- ログイン中に表示される画面 -->
+    <div v-if="isAuthenticated">
+      {{ user.email }}でログイン中です<br>
+      <button v-on:click="logout">ログアウト</button><br>
+      <a href="/member-page">メンバーページへ</a>
+    </div>
+    <!-- ログインしていない時に表示される画面 -->
+    <div v-else>
+      メール<br>
+      <input type="text" v-model="email"><br>
+      パスワード<br>
+      <input type="password" v-model="password"><br>
+      <button @click="login">ログイン</button>
     </div>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-
+import firebase from '~/plugins/firebase'
+import { mapActions, mapState, mapGetters } from 'vuex'
 export default {
-  components: {
-    Logo
+  data() {
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  computed: {
+    ...mapState(['user']),
+    ...mapGetters(['isAuthenticated'])
+  },
+  mounted() {
+    firebase.auth().onAuthStateChanged((user) => {
+      this.setUser(user)
+    })
+  },
+  methods : {
+    ...mapActions(['setUser']),
+    login() {
+      firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+      .then(user => {
+        // ログインしたら飛ぶページを指定
+        this.$router.push("/socket")
+      }).catch((error) => {
+        alert(error)
+      });
+    },
+    logout() {
+      firebase.auth().signOut()
+      .then(() => {
+        this.setUser(null)
+      }).catch((error) => {
+        alert(error)
+      })
+    }
   }
 }
 </script>
-
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>

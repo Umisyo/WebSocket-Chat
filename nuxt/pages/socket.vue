@@ -40,6 +40,7 @@
 
 <script>
 import io from 'socket.io-client'
+import { mapState } from 'vuex';
 
 export default {
     data () {
@@ -51,6 +52,7 @@ export default {
         }
     },
     computed: {
+        ...mapState(['user']),
         reverseMessages: function () {
             return this.messages.slice().reverse()
         },
@@ -78,7 +80,7 @@ export default {
             now = now.toJSON().split('T')[1].slice(0, 5)
 
             let message = {
-                user: this.socket.id,
+                user: this.user.email,
                 date: now,
                 text: this.message.trim(),
             }

@@ -2,7 +2,7 @@ version: '3'
 services:
   nuxt:
     build: ./nuxt
-    command: yarn run dev
+    command: yarn dev
     volumes:
       - ./nuxt:/nuxt
     ports:

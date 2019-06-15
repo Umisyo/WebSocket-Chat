@@ -1,23 +1,25 @@
-export const strict = false
+import Vuex from 'vuex'
 
-export const state = () => {
-    user: null
+const createStore = () => {
+    return new Vuex.Store({
+        strict: process.env.NODE_ENV !== 'production',
+        state: () => ({
+            auth:{},
+        }),
+        mutations: {
+            setAuth(state, payload){
+                state.auth = {
+                    uid: payload.uid,
+                    userName: payload.userName,
+                };
+            },
+        },
+        actions: {
+            setAuth(store, payload) {
+                store.commit('setAuth', payload);
+            }
+        }
+    })
 }
 
-export const mutations = {
-    setUser (state, payload) {
-        state.user = payload
-    }
-}
-
-export const actions = {
-    setUser ({ commit }, payload) {
-        commit('setUser', payload)
-    }
-}
-
-export const getters = {
-    isAuthenticated (state) {
-        return !state.user
-    }
-}
+export default createStore;

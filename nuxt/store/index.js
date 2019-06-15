@@ -18,6 +18,6 @@ export const actions = {
 
 export const getters = {
     isAuthenticated (state) {
-        return !!state.user
+        return !state.user
     }
 }

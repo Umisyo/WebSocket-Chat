@@ -43,6 +43,7 @@ import io from 'socket.io-client'
 import { mapState } from 'vuex';
 
 export default {
+    middleware: 'authenticated',
     data () {
         return {
             message: '',

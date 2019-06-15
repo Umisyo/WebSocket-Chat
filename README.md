@@ -13,32 +13,32 @@ This is a chat application made with Nuxt that uses WebSocket technology
 ## Setup(for mac)
 
 ```bash
-brew install docker
-brew cask install docker
+$ brew install docker
+$ brew cask install docker
 
-open /Applications/Docker.app
+$ open /Applications/Docker.app
 ```
 
 Register account according to the message
 
 ```bash
-git clone https://github.com/Umisyo/WebSocket-Chat
+$ git clone https://github.com/Umisyo/WebSocket-Chat
 
-cd WebSocket-Chat
+$ cd WebSocket-Chat
 
-docket-compose build nuxt
+$ docker-compose build nuxt
 ```
 
 ## Usage
 
 ```bash
-cd WebSocket-Chat
-docker-compose up
+$ cd WebSocket-Chat
+$ docker-compose up
 ```
 
 ## License
 
-This software is released under the MIT License, see LICENSE.
+This software is released under the MIT License, see [LICENSE](https://github.com/Umisyo/WebSocket-Chat/blob/master/LICENSE).
 
 ## Authors
 

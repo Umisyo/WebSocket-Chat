@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <button @click="googleLogin">Login with Google</button>
+  <div class="container">
+    <button class="button is-info" @click="googleLogin">Login with Google</button>
+    <button class="button is-info" @click="unknownLogin">名無しさんとしてログイン</button>
   </div>
 </template>
 
@@ -15,11 +16,18 @@ export default {
         .auth()
         .signInWithPopup(provider)
         .then((result) => {
-          console.log(result);
           this.$store.dispatch('setAuth', {uid: result.user.uid, userName: result.user.displayName}),
           this.$router.push('/socket');
         });
+    },
+    unknownLogin() {
+      this.$store.dispatch('setAuth', {uid: 'unknown', userName: '名無しさん'})
+      this.$router.push('/socket')
     }
   },
 }
 </script>
+
+<style>
+
+</style>

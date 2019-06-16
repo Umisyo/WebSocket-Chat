@@ -9,7 +9,6 @@
                 class="input"
                 type="text"
                 v-model="message"
-                @keyup.enter="sendMessage"
                 placeholder="message"
               >
             </p>

@@ -57,6 +57,16 @@ function socketStart(server) {
         messageQueue = messageQueue.slice(-10)
       }
     })
+
+    socket.on('send-reply', (reply, thisIndex) => {
+      console.log(reply)
+      messageQueue[thisIndex].replys.push(reply)
+      socket.broadcast.emit('new=reply', reply)
+
+      if (messageQueue[thisIndex].replys.length > 10) {
+        messageQueue[thisIndex].replys.slice(-10)
+      }
+    })
   })
 }
 

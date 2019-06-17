@@ -20,8 +20,8 @@
           </div>
         </div>
       </article>
-      <article class="media" v-for="(message, index) in reverseMessages" :key="index">
-        <messageBox :message='message'></messageBox>
+      <article class="media" v-for="(message, index) in messages.slice().reverse()" :key="index">
+        <messageBox :message='message' :socket='socket' :auth='auth' :thisIndex='index' :isMother='true'></messageBox>
       </article>
       <b-loading :is-full-page="false" :active.sync="isLoading" :can-cansel="false"></b-loading>
     </div>
@@ -87,7 +87,8 @@ export default {
       let message = {
         user: !this.auth.userName === '名無しさん' ? this.auth.userName: '名無しさん' + ' id:' + this.socket.id,
         date: now,
-        text: this.message.trim()
+        text: this.message.trim(),
+        replys: []
       };
 
       this.messages.push(message);

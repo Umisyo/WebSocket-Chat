@@ -85,7 +85,7 @@ export default {
         .slice(0, 5);
 
       let message = {
-        user: !this.auth.userName === '名無しさん' ? this.auth.userName: '名無しさん' + ' id:' + this.socket.id,
+        user: !this.auth.userName !== '名無しさん' ? this.auth.userName: '名無しさん' + ' id:' + this.socket.id,
         date: now,
         text: this.message.trim(),
         replys: []

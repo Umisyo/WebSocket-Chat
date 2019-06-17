@@ -28,7 +28,7 @@
           <div class="content">
             <p>
               >
-              <strong>id: {{ message.user }}</strong>
+              <strong>User: {{ message.user }}</strong>
               <br>
               {{ message.text }}
               <br>
@@ -92,7 +92,7 @@ export default {
         .slice(0, 5);
 
       let message = {
-        user: this.auth.userName,
+        user: !this.auth.userName === '名無しさん' ? this.auth.userName: '名無しさん' + ' id:' + this.socket.id,
         date: now,
         text: this.message.trim()
       };

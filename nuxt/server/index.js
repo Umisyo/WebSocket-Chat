@@ -10,7 +10,6 @@ config.dev = !(process.env.NODE_ENV === 'production')
 async function start() {
   // Init Nuxt.js
   const nuxt = new Nuxt(config)
-
   const { host, port } = nuxt.options.server
 
   // Build only in dev mode
@@ -51,9 +50,7 @@ function socketStart(server) {
 
     socket.on('send-message', message => {
       console.log(message)
-
       messageQueue.push(message)
-
       socket.broadcast.emit('new-message', message)
 
       if (messageQueue.length > 10) {

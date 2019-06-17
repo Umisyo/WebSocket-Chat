@@ -9,6 +9,8 @@
                 class="input"
                 type="text"
                 v-model="message"
+                @keyup.enter="sendMessage"
+                @keypress="setCanMessageSubmit"
                 placeholder="message"
               >
             </p>
@@ -41,7 +43,8 @@ export default {
       message: "",
       messages: [],
       socket: "",
-      isLoading: true
+      isLoading: true,
+      canMessageSubmit: false
     };
   },
   computed: {
@@ -62,8 +65,14 @@ export default {
     }, 1000);
   },
   methods: {
+    setCanMessageSubmit() {
+      this.canMessageSubmit = true
+    },
     sendMessage() {
       if (!this.message.trim()) {
+        return;
+      }
+      else if (!this.canMessageSubmit){
         return;
       }
 
@@ -86,6 +95,8 @@ export default {
       this.socket.emit("send-message", message);
 
       this.message = "";
+
+      this.canMessageSubmit = false
     }
   }
 };

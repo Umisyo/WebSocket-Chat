@@ -15,7 +15,7 @@
                 <br>
                 <small>
                     <a>Like</a>
-                    <a @click="setShowReplyArea" v-if="isMother">Reply</a>
+                    <a @click="setShowReplyArea" v-if="isMother">Reply {{ message.replys.length }}</a>
                     . {{ message.date }}
                 </small>
             </p>

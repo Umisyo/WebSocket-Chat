@@ -19,27 +19,7 @@
         </div>
       </article>
       <article class="media" v-for="(message, index) in reverseMessages" :key="index">
-        <figure class="media-left">
-          <p class="image is-64x64">
-            <img src="https://bulma.io/images/placeholders/128x128.png">
-          </p>
-        </figure>
-        <div class="media-content">
-          <div class="content">
-            <p>
-              >
-              <strong>User: {{ message.user }}</strong>
-              <br>
-              {{ message.text }}
-              <br>
-              <small>
-                <a>Like</a>・
-                <a>Reply</a>
-                ・ {{ message.date }}
-              </small>
-            </p>
-          </div>
-        </div>
+        <messageBox :message='message'></messageBox>
       </article>
       <b-loading :is-full-page="false" :active.sync="isLoading" :can-cansel="false"></b-loading>
     </div>
@@ -49,9 +29,13 @@
 <script>
 import io from "socket.io-client";
 import { mapState } from "vuex";
+import messageBox from '~/components/messageBox'
 
 export default {
   middleware: "auth",
+  components: {
+    messageBox
+  },
   data() {
     return {
       message: "",
